@@ -6,7 +6,7 @@ export default function Auth() {
     const [isLogin, setIsLogin] = useState(true);
     return(
     <View style={styles.view}>
-      <Image style={styles.logo} source={require('../assets/Logo-1.png')} />
+      <Image style={styles.logo} source={require('../assets/logo.png')} />
       <Text>Hola Mundo</Text>
     </View>
 );
