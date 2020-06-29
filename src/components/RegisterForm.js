@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import {
     StyleSheet,
     Text,
@@ -8,11 +8,26 @@ import {
 } from 'react-native'
 
 export default function RegisterForm(props) {
-    const { changeForm } = props;
+    const { changeForm } = props
+    const [formData, setFormData] = useState(defaulValue())
+    const [formError, setFormError] = useState()
 
     const register = () => {
-        console.log("Registrando...");
-    };
+        let errors = {}
+        if (!formData.email || !formData.password || !formData.repeatpassword) {
+            if (!formData.password) {
+                errors.email = true
+            }
+            errors.email = true
+            if (!formData.password) {
+                errors.password = true
+            }
+            if (!formData.repeatpassword) {
+                errors.repeatpassword = true
+            }
+        }
+        console.log(errors);
+    }
 
     return (
         <>
@@ -20,22 +35,38 @@ export default function RegisterForm(props) {
                 style={styles.input}
                 placeholder="Correo electronico"
                 placeholderTextColor="#969696"
+                onChange={e =>
+                    setFormData({ ...formData, email: e.nativeEvent.text })
+                }
             />
 
             <TextInput
                 style={styles.input}
                 placeholder="Contraseña"
                 placeholderTextColor="#969696"
+                secureTextEntry={true}
+                onChange={e =>
+                    setFormData({ ...formData, password: e.nativeEvent.text })
+                }
             />
 
             <TextInput
                 style={styles.input}
                 placeholder="Repetir Contraseña"
                 placeholderTextColor="#969696"
+                secureTextEntry={true}
+                onChange={e =>
+                    setFormData({
+                        ...formData,
+                        repeatpassword: e.nativeEvent.text,
+                    })
+                }
             />
 
             <TouchableOpacity>
-                <Text style={styles.btnText} onPress={register}>Registrarse</Text>
+                <Text style={styles.btnText} onPress={register}>
+                    Registrarse
+                </Text>
             </TouchableOpacity>
 
             <View styles={styles.login}>
@@ -47,6 +78,14 @@ export default function RegisterForm(props) {
             </View>
         </>
     )
+}
+
+function defaulValue() {
+    return {
+        email: '',
+        password: '',
+        repeatpassword: '',
+    }
 }
 
 const styles = StyleSheet.create({
@@ -70,7 +109,5 @@ const styles = StyleSheet.create({
     login: {
         flex: 1,
         justifyContent: 'flex-end',
-        marginBottom: 10,
-        marginTop: 50,
     },
 })
