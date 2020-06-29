@@ -1,29 +1,29 @@
-import React, { useState } from 'react'
+import React, { useState } from 'react';
 import {
     StyleSheet,
     Text,
     TouchableOpacity,
     TextInput,
     View,
-} from 'react-native'
+} from 'react-native';
 
 export default function RegisterForm(props) {
-    const { changeForm } = props
-    const [formData, setFormData] = useState(defaulValue())
-    const [formError, setFormError] = useState()
+    const { changeForm } = props;
+    const [formData, setFormData] = useState(defaulValue());
+    const [formError, setFormError] = useState();
 
     const register = () => {
-        let errors = {}
+        let errors = {};
         if (!formData.email || !formData.password || !formData.repeatpassword) {
             if (!formData.password) {
-                errors.email = true
+                errors.email = true;
             }
-            errors.email = true
+            errors.email = true;
             if (!formData.password) {
-                errors.password = true
+                errors.password = true;
             }
             if (!formData.repeatpassword) {
-                errors.repeatpassword = true
+                errors.repeatpassword = true;
             }
         }
         console.log(errors);
