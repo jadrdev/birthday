@@ -15,7 +15,6 @@ export default function RegisterForm(props) {
     const [formError, setFormError] = useState({})
 
     const register = () => {
-        console.log(formData)
         let errors = {}
         if (!formData.email || !formData.password || !formData.repeatpassword) {
             if (!formData.password) {
@@ -30,7 +29,7 @@ export default function RegisterForm(props) {
             }
         } else if (!validateEmail(formData.email)) {
             errors.email = true
-        } else if (formData.email !== formData.repeatpassword) {
+        } else if (formData.password !== formData.repeatpassword) {
             errors.password = true
             errors.repeatpassword = true
         } else if (formData.password.length < 6) {
