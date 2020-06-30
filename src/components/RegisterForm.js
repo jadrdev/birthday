@@ -1,57 +1,76 @@
-import React, { useState } from 'react';
+import React, { useState } from 'react'
 import {
     StyleSheet,
     Text,
     TouchableOpacity,
     TextInput,
     View,
-} from 'react-native';
+} from 'react-native'
+
+import { validateEmail } from '../utils/validation'
 
 export default function RegisterForm(props) {
-    const { changeForm } = props;
-    const [formData, setFormData] = useState(defaulValue());
-    const [formError, setFormError] = useState();
+    const { changeForm } = props
+    const [formData, setFormData] = useState(defaulValue())
+    const [formError, setFormError] = useState({})
 
     const register = () => {
-        let errors = {};
+        console.log(formData)
+        let errors = {}
         if (!formData.email || !formData.password || !formData.repeatpassword) {
             if (!formData.password) {
-                errors.email = true;
+                errors.email = true
             }
-            errors.email = true;
+            errors.email = true
             if (!formData.password) {
-                errors.password = true;
+                errors.password = true
             }
             if (!formData.repeatpassword) {
-                errors.repeatpassword = true;
+                errors.repeatpassword = true
             }
+        } else if (!validateEmail(formData.email)) {
+            errors.email = true
+        } else if (formData.email !== formData.repeatpassword) {
+            errors.password = true
+            errors.repeatpassword = true
+        } else if (formData.password.length < 6) {
+            errors.password = true
+            errors.repeatpassword = true
+        } else {
+            console.log('formulario coreccto')
         }
-        console.log(errors);
+        setFormError(errors)
     }
 
     return (
         <>
             <TextInput
-                style={styles.input}
+                style={[styles.input, formError.email && styles.error]}
                 placeholder="Correo electronico"
                 placeholderTextColor="#969696"
                 onChange={e =>
-                    setFormData({ ...formData, email: e.nativeEvent.text })
+                    setFormData({
+                        ...formData,
+                        email: e.nativeEvent.text,
+                    })
                 }
             />
 
             <TextInput
-                style={styles.input}
+                style={[styles.input, formError.password && styles.error]}
                 placeholder="Contraseña"
                 placeholderTextColor="#969696"
                 secureTextEntry={true}
                 onChange={e =>
-                    setFormData({ ...formData, password: e.nativeEvent.text })
+                    setFormData({
+                        ...formData,
+                        password: e.nativeEvent.text,
+                    })
                 }
             />
 
             <TextInput
-                style={styles.input}
+                style={[styles.input, formError.repeatpassword && styles.error]}
                 placeholder="Repetir Contraseña"
                 placeholderTextColor="#969696"
                 secureTextEntry={true}
@@ -97,7 +116,7 @@ const styles = StyleSheet.create({
     input: {
         height: 50,
         color: '#fff',
-        width: "80%",
+        width: '80%',
         marginBottom: 25,
         backgroundColor: '#1e3040',
         paddingHorizontal: 20,
@@ -109,5 +128,8 @@ const styles = StyleSheet.create({
     login: {
         flex: 1,
         justifyContent: 'flex-end',
+    },
+    error: {
+        borderColor: '#940c0c',
     },
 })

@@ -2,13 +2,15 @@ import React from 'react';
 import { StyleSheet, Text, View, TouchableOpacity } from 'react-native';
 
 export default function LoginForm(props) {
-    const {changeForm} = props;
+    const { changeForm } = props
 
     return (
         <View>
             <Text>LoginForm</Text>
             <TouchableOpacity>
-                <Text style={styles.btnText} onPress={changeForm}>Registrate</Text>
+                <Text style={styles.btnText} onPress={changeForm}>
+                    Registrate
+                </Text>
             </TouchableOpacity>
         </View>
     );
