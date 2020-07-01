@@ -28,7 +28,7 @@ export default function App() {
 
 const styles = StyleSheet.create({
   background: {
-    backgroundColor: "#15212b",
-    height: "100%",
+        backgroundColor: '#15212b',
+        height: '100%',
   }
 })
