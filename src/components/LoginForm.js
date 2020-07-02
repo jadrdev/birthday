@@ -1,41 +1,77 @@
-import React, {useState} from 'react'
-import { StyleSheet, View, Text, TouchableOpacity, TextInput } from 'react-native';
-import {validateEmail} from "../utils/validation"
-import firebase from "../utils/firebase"
+import React, { useState } from 'react'
+import {
+    StyleSheet,
+    View,
+    Text,
+    TouchableOpacity,
+    TextInput,
+} from 'react-native'
+import { validateEmail } from '../utils/validation'
+import firebase from '../utils/firebase'
 
 export default function LoginForm(props) {
     const { changeForm } = props
+    const [formData, setFormData] = useState(defaultValue())
+    const [formError, setFormError] = useState({})
+
     const login = () => {
-        console.log('Iniciado Sesión')
+        if (!formData.email || !formData.password) {
+            if (!formData.password) {
+                errors.email = true
+            }
+            errors.email = true
+            if (!formData.password) {
+                errors.password = true
+            }
+        } else if (!validateEmail(formData.email)) {
+            errors.email = true
+        } else {
+            console.log("Ok");
+        }
+        setFormError(errors)
+
+    }
+
+    const onChange = (e, type) => {
+        setFormData({...formData, [type]: e.nativeEvent.text })
     }
 
     return (
         <>
-         <TextInput 
-            style={styles.input}
-            placeholder="Correo Electronico"
-            placeholderTextColor="#969696"
-         />
+            <TextInput
+                style={styles.input}
+                placeholder="Correo Electronico"
+                placeholderTextColor="#969696"
+                onChange={(e) => onChange(e, 'email')}
+            />
 
-        <TextInput 
-            style={styles.input}
-            placeholder="Contraseña"
-            placeholderTextColor="#969696"
-            secureTextEntry={true}
-         />
+            <TextInput
+                style={styles.input}
+                placeholder="Contraseña"
+                placeholderTextColor="#969696"
+                secureTextEntry={true}
+                onChange={(e) => onChange(e, 'password')}
+            />
 
-         <TouchableOpacity onPress={login}>
-             <Text style={styles.btnText}>
-             Iniciar Sesión
-             </Text>
-         </TouchableOpacity>     
-
-            <TouchableOpacity onPress={changeForm}>
-                <Text style={styles.btnText}>Registrate</Text>
+            <TouchableOpacity onPress={login}>
+                <Text style={styles.btnText}>Iniciar Sesión</Text>
             </TouchableOpacity>
+
+            <View style={styles.register}>
+                <TouchableOpacity onPress={changeForm}>
+                    <Text style={styles.btnText}>Registrate</Text>
+                </TouchableOpacity>
+            </View>
         </>
-    );
+    )
 }
+
+function defaultValue(){
+    return {
+        email: "",
+        password: ""
+    }
+}  
 
 const styles = StyleSheet.create({
     btnText: {
@@ -54,4 +90,9 @@ const styles = StyleSheet.create({
         borderWidth: 1,
         borderColor: '#1e3040',
     },
-});
+    register: {
+        flex: 1,
+        justifyContent: 'flex-end',
+        marginBottom: 10,
+    },
+})

@@ -103,7 +103,7 @@ export default function RegisterForm(props) {
                 </Text>
             </TouchableOpacity>
 
-            <View styles={styles.login}>
+            <View style={styles.loginx}>
                 <TouchableOpacity>
                     <Text style={styles.btnText} onPress={changeForm}>
                         Iniciar Sesión
@@ -140,9 +140,10 @@ const styles = StyleSheet.create({
         borderWidth: 1,
         borderColor: '#1e3040',
     },
-    login: {
+    loginx: {
         flex: 1,
         justifyContent: 'flex-end',
+        marginBottom: 10,
     },
     error: {
         borderColor: '#940c0c',
