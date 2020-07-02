@@ -77,6 +77,8 @@ target 'birthday' do
   pod 'glog', :podspec => '../node_modules/react-native/third-party-podspecs/glog.podspec'
   pod 'Folly', :podspec => '../node_modules/react-native/third-party-podspecs/Folly.podspec'
 
+  pod 'TouchID', :path => '../node_modules/react-native-touch-id'
+
   target 'birthdayTests' do
     inherit! :complete
     # Pods for testing
