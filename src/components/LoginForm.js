@@ -15,6 +15,7 @@ export default function LoginForm(props) {
     const [formError, setFormError] = useState({})
 
     const login = () => {
+        let errors = {}
         if (!formData.email || !formData.password) {
             if (!formData.password) {
                 errors.email = true
@@ -57,6 +58,10 @@ export default function LoginForm(props) {
                 <Text style={styles.btnText}>Iniciar Sesión</Text>
             </TouchableOpacity>
 
+            <TouchableOpacity onPress={login}>
+                <Text style={styles.btnTextT}>Iniciar Sesión con TouchID</Text>
+            </TouchableOpacity>
+
             <View style={styles.register}>
                 <TouchableOpacity onPress={changeForm}>
                     <Text style={styles.btnText}>Registrate</Text>
@@ -77,6 +82,11 @@ const styles = StyleSheet.create({
     btnText: {
         color: '#fff',
         fontSize: 18,
+    },
+    btnTextT: {
+        color: '#fff',
+        fontSize: 18,
+        marginTop: 5,
     },
     input: {
         height: 50,
