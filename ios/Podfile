@@ -79,6 +79,8 @@ target 'birthday' do
 
   pod 'TouchID', :path => '../node_modules/react-native-touch-id'
 
+  pod 'react-native-biometrics', :path => '../node_modules/react-native-biometrics'
+
   target 'birthdayTests' do
     inherit! :complete
     # Pods for testing

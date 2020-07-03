@@ -22,6 +22,7 @@ export default function App() {
         })
     }, [])
 
+
     if (user === undefined) return null
 
     return (

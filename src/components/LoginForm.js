@@ -9,6 +9,8 @@ import {
 import { validateEmail } from '../utils/validation'
 import firebase from '../utils/firebase'
 
+
+
 export default function LoginForm(props) {
     const { changeForm } = props
     const [formData, setFormData] = useState(defaultValue())
@@ -27,23 +29,23 @@ export default function LoginForm(props) {
         } else if (!validateEmail(formData.email)) {
             errors.email = true
         } else {
-            console.log("Ok");
+            console.log('Ok')
         }
         setFormError(errors)
-
     }
 
     const onChange = (e, type) => {
-        setFormData({...formData, [type]: e.nativeEvent.text })
+        setFormData({ ...formData, [type]: e.nativeEvent.text })
     }
 
+   
     return (
         <>
             <TextInput
                 style={styles.input}
                 placeholder="Correo Electronico"
                 placeholderTextColor="#969696"
-                onChange={(e) => onChange(e, 'email')}
+                onChange={e => onChange(e, 'email')}
             />
 
             <TextInput
@@ -51,15 +53,11 @@ export default function LoginForm(props) {
                 placeholder="Contraseña"
                 placeholderTextColor="#969696"
                 secureTextEntry={true}
-                onChange={(e) => onChange(e, 'password')}
+                onChange={e => onChange(e, 'password')}
             />
 
             <TouchableOpacity onPress={login}>
                 <Text style={styles.btnText}>Iniciar Sesión</Text>
-            </TouchableOpacity>
-
-            <TouchableOpacity onPress={login}>
-                <Text style={styles.btnTextT}>Iniciar Sesión con TouchID</Text>
             </TouchableOpacity>
 
             <View style={styles.register}>
@@ -71,12 +69,12 @@ export default function LoginForm(props) {
     )
 }
 
-function defaultValue(){
+function defaultValue() {
     return {
-        email: "",
-        password: ""
+        email: '',
+        password: '',
     }
-}  
+}
 
 const styles = StyleSheet.create({
     btnText: {
