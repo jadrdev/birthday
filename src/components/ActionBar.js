@@ -25,7 +25,4 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         paddingHorizontal: 30,
     },
-    textoA: {
-        color: '#fff',
-    },
 });
