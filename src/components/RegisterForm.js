@@ -43,9 +43,6 @@ export default function RegisterForm(props) {
                     formData.email,
                     formData.password
                 )
-                .then(() => {
-                    console.log('Cuenta creada')
-                })
                 .catch(() => {
                     setFormError({
                         email: true,

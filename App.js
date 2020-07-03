@@ -10,6 +10,7 @@ import {
 import Auth from './src/components/Auth'
 import firebase from './src/utils/firebase'
 import 'firebase/auth'
+import Listbirthday from './src/components/Listbirthday'
 
 console.disableYellowBox = true
 
@@ -29,23 +30,12 @@ export default function App() {
         <>
             <StatusBar barStyle="light-content" />
             <SafeAreaView style={styles.background}>
-                {user ? <LogoOut /> : <Auth />}
+                {user ? <Listbirthday /> : <Auth />}
             </SafeAreaView>
         </>
     )
 }
 
-function LogoOut() {
-    const logoOut = () => {
-        firebase.auth().signOut()
-    }
-    return (
-        <View>
-            <Text>Estas logueado</Text>
-            <Button title="Cerrar Sesión" onPress={logoOut} />
-        </View>
-    )
-}
 
 const styles = StyleSheet.create({
     background: {
