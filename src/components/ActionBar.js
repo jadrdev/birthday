@@ -4,11 +4,11 @@ import { Text, View, StyleSheet } from 'react-native'
 export default function ActionBar() {
     return (
         <View style={styles.viewFooter}>
-            <View>
-                <Text>Cerrar Sesión</Text>
+            <View style={styles.viewClose}>
+                <Text style={styles.text}>Cerrar Sesión</Text>
             </View>
-            <View>
-                <Text>Nueva Fecha</Text>
+            <View style={styles.newdate}>
+                <Text style={styles.text}>Nueva Fecha</Text>
             </View>
         </View>
     )
@@ -24,5 +24,24 @@ const styles = StyleSheet.create({
         justifyContent: 'space-between',
         alignItems: 'center',
         paddingHorizontal: 30,
+        marginBottom: 20,
     },
+    viewClose: {
+        backgroundColor: '#820000',
+        borderRadius: 50,
+        paddingVertical: 10,
+        paddingHorizontal: 30,
+    },
+    text: {
+        fontSize: 16,
+        color: '#fff',
+        textAlign: 'center',
+    },
+    newdate: {
+        backgroundColor: '#1ea1f2',
+        borderRadius: 50,
+        paddingVertical: 10,
+        paddingHorizontal: 30,
+    },
+  
 });
