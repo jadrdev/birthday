@@ -1,11 +1,21 @@
 import React from 'react'
 import { Text, View, StyleSheet } from 'react-native'
+import firebase from '../utils/firebase'
 
-export default function ActionBar() {
+export default function ActionBar(props) {
+    console.log(props)
+
+    const { showList, SetShowList } = props
+
     return (
         <View style={styles.viewFooter}>
             <View style={styles.viewClose}>
-                <Text style={styles.text}>Cerrar Sesión</Text>
+                <Text
+                    style={styles.text}
+                    onPress={() => firebase.auth().signOut()}
+                >
+                    Cerrar Sesión
+                </Text>
             </View>
             <View style={styles.newdate}>
                 <Text style={styles.text}>Nueva Fecha</Text>
@@ -43,5 +53,4 @@ const styles = StyleSheet.create({
         paddingVertical: 10,
         paddingHorizontal: 30,
     },
-  
-});
+})
