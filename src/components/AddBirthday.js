@@ -1,5 +1,11 @@
 import React, { useState } from 'react'
-import { StyleSheet, View, TextInput, Text } from 'react-native'
+import {
+    StyleSheet,
+    View,
+    TextInput,
+    Text,
+    TouchableOpacity,
+} from 'react-native'
 import DateTimePickerModal from 'react-native-modal-datetime-picker'
 import moment from 'moment'
 
@@ -21,8 +27,15 @@ export default function AddBirthday() {
         datebirth.setMinutes(0)
         datebirth.setSeconds(0)
         setformData({ ...formData, datebirth })
-        console.log(formData)
         hidedatePicker()
+    }
+
+    const onChange = (e, type) => {
+        setformData({ ...formData, [type]: e.nativeEvent.text })
+    }
+
+    const onSubmit = () => {
+        console.log(formData)
     }
 
     return (
@@ -32,11 +45,13 @@ export default function AddBirthday() {
                     placeholder="Nombre"
                     placeholderTextColor="#969696"
                     style={styles.input}
+                    onChange={e => onChange(e, 'name')}
                 />
                 <TextInput
                     placeholder="Apellidos"
                     placeholderTextColor="#969696"
                     style={styles.input}
+                    onChange={e => onChange(e, 'lastname')}
                 />
                 <View style={[styles.input, styles.datepicker]}>
                     <Text
@@ -50,6 +65,11 @@ export default function AddBirthday() {
                             ? moment(formData.datebirth).format('LL')
                             : 'Fecha de nacimiento'}
                     </Text>
+                </View>
+                <View>
+                    <TouchableOpacity onPress={onSubmit}>
+                        <Text style={styles.addButton}>Crear Cumpleaños</Text>
+                    </TouchableOpacity>
                 </View>
             </View>
             <DateTimePickerModal
@@ -85,5 +105,10 @@ const styles = StyleSheet.create({
 
     datepicker: {
         justifyContent: 'center',
+    },
+    addButton: {
+        justifyContent: 'center',
+        color: '#fff',
+        fontSize: 20,
     },
 })
