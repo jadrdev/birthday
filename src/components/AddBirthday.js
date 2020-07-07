@@ -1,8 +1,10 @@
 import React, { useState } from 'react'
 import { StyleSheet, View, TextInput, Text } from 'react-native'
 import DateTimePickerModal from 'react-native-modal-datetime-picker'
+import moment from 'moment'
 
 export default function AddBirthday() {
+    const [formData, setformData] = useState({})
     const [isDatePickerVisible, setDatePickerVisibility] = useState(false)
 
     const hidedatePicker = () => {
@@ -14,7 +16,12 @@ export default function AddBirthday() {
     }
 
     const haldleConfirm = data => {
-        console.log(data)
+        const datebirth = data
+        datebirth.setHours(0)
+        datebirth.setMinutes(0)
+        datebirth.setSeconds(0)
+        setformData({ ...formData, datebirth })
+        console.log(formData)
         hidedatePicker()
     }
 
@@ -32,8 +39,16 @@ export default function AddBirthday() {
                     style={styles.input}
                 />
                 <View style={[styles.input, styles.datepicker]}>
-                    <Text style={styles.textdate} onPress={showdatepicker}>
-                        Fecha de nacimiento
+                    <Text
+                        style={{
+                            color: formData.datebirth ? '#fff' : '#969696',
+                            fontSize: 18,
+                        }}
+                        onPress={showdatepicker}
+                    >
+                        {formData.datebirth
+                            ? moment(formData.datebirth).format('LL')
+                            : 'Fecha de nacimiento'}
                     </Text>
                 </View>
             </View>
@@ -42,6 +57,7 @@ export default function AddBirthday() {
                 mode="date"
                 onConfirm={haldleConfirm}
                 onCancel={hidedatePicker}
+                headerTextIOS="Escoge la fecha de cumpleaños"
             />
         </>
     )
@@ -69,9 +85,5 @@ const styles = StyleSheet.create({
 
     datepicker: {
         justifyContent: 'center',
-    },
-    textdate: {
-        color: '#969696',
-        fontSize: 18,
     },
 })

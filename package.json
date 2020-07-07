@@ -12,6 +12,7 @@
   "dependencies": {
     "@react-native-community/datetimepicker": "^2.5.0",
     "firebase": "~7.9.0",
+    "moment": "^2.27.0",
     "react": "16.11.0",
     "react-native": "0.62.2",
     "react-native-biometrics": "^2.1.4",
