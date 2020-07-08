@@ -13,8 +13,6 @@ import firebase from './src/utils/firebase'
 import 'firebase/auth'
 import Listbirthday from './src/components/Listbirthday'
 
-console.disableYellowBox = true
-
 if (!global.btoa) {
     global.btoa = encode
 }
@@ -22,6 +20,8 @@ if (!global.btoa) {
 if (!global.atob) {
     global.atob = decode
 }
+
+console.disableYellowBox = true
 
 export default function App() {
     const [user, setUser] = useState(undefined)
