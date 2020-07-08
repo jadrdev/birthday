@@ -12,6 +12,7 @@ import moment from 'moment'
 export default function AddBirthday() {
     const [formData, setformData] = useState({})
     const [isDatePickerVisible, setDatePickerVisibility] = useState(false)
+    const [formError, setformError] = useState({})
 
     const hidedatePicker = () => {
         setDatePickerVisibility(false)
@@ -35,7 +36,12 @@ export default function AddBirthday() {
     }
 
     const onSubmit = () => {
-        console.log(formData)
+        let error = {}
+        if (!formData.name || !formData.lastname || !formData.datebirth) {
+            if (!formData.name) error.name = true
+            if (!formData.lastname) error.lastname = true
+            if (!formData.datebirth) error.datebirth = true
+        }
     }
 
     return (
