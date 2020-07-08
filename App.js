@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react'
+import { decode, encode } from 'base-64'
 import {
     StatusBar,
     SafeAreaView,
@@ -14,6 +15,14 @@ import Listbirthday from './src/components/Listbirthday'
 
 console.disableYellowBox = true
 
+if (!global.btoa) {
+    global.btoa = encode
+}
+
+if (!global.atob) {
+    global.atob = decode
+}
+
 export default function App() {
     const [user, setUser] = useState(undefined)
 
@@ -23,8 +32,9 @@ export default function App() {
         })
     }, [])
 
-
-    if (user === undefined) return null
+    if (user === undefined) {
+        return null
+    }
 
     return (
         <>
@@ -35,7 +45,6 @@ export default function App() {
         </>
     )
 }
-
 
 const styles = StyleSheet.create({
     background: {
