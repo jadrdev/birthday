@@ -8,6 +8,10 @@ import {
 } from 'react-native'
 import DateTimePickerModal from 'react-native-modal-datetime-picker'
 import moment from 'moment'
+import firebase from '../utils/firebase'
+import 'firebase/firestore'
+
+const db = firebase.firestore(firebase)
 
 export default function AddBirthday() {
     const [formData, setformData] = useState({})
@@ -36,12 +40,30 @@ export default function AddBirthday() {
     }
 
     const onSubmit = () => {
-        let error = {}
+        let errors = {}
         if (!formData.name || !formData.lastname || !formData.datebirth) {
-            if (!formData.name) error.name = true
-            if (!formData.lastname) error.lastname = true
-            if (!formData.datebirth) error.datebirth = true
+            if (!formData.name) errors.name = true
+            if (!formData.lastname) errors.lastname = true
+            if (!formData.datebirth) errors.datebirth = true
+        } else {
+            console.log(formData)
+            const data = formData
+            data.datebirth.setYear(0)
+            db.collection('cumples')
+                .add(data)
+                .then(() => {
+                    console.log('Hola')
+                })
+                .catch(() => {
+                    setformError({
+                        name: true,
+                        lastname: true,
+                        datebirth: true,
+                    })
+                })
         }
+
+        setformError(errors)
     }
 
     return (
@@ -50,16 +72,28 @@ export default function AddBirthday() {
                 <TextInput
                     placeholder="Nombre"
                     placeholderTextColor="#969696"
-                    style={styles.input}
+                    style={[
+                        styles.input,
+                        formError.name && { borderColor: '#940c0c' },
+                    ]}
                     onChange={e => onChange(e, 'name')}
                 />
                 <TextInput
                     placeholder="Apellidos"
                     placeholderTextColor="#969696"
-                    style={styles.input}
+                    style={[
+                        styles.input,
+                        formError.lastname && { borderColor: '#940c0c' },
+                    ]}
                     onChange={e => onChange(e, 'lastname')}
                 />
-                <View style={[styles.input, styles.datepicker]}>
+                <View
+                    style={[
+                        styles.input,
+                        styles.datepicker,
+                        formError.datebirth && { borderColor: '#940c0c' },
+                    ]}
+                >
                     <Text
                         style={{
                             color: formData.datebirth ? '#fff' : '#969696',
