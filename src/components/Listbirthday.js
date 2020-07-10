@@ -1,10 +1,31 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { Text, StyleSheet, View } from 'react-native'
 import AddBirthday from '../components/AddBirthday'
 import ActionBar from '../components/ActionBar'
+import firebase from '../utils/firebase'
+import 'firebase/firestore'
 
-export default function Listbirthday() {
+firebase.firestore().settings({ experimentalForceLongPolling: true })
+const db = firebase.firestore(firebase)
+
+export default function Listbirthday(props) {
+    const { user } = props
     const [showList, SetShowList] = useState(true)
+    const [birhday, setBirhday] = useState({})
+
+    useEffect(() => {
+        setBirhday([])
+        db.collection(user.uid)
+            .orderBy('DateBirth', 'asc')
+            .get()
+            .then(response => {
+                const itemArray = []
+                response.forEach(doc => {
+                    console.log(doc.data())
+                })
+            })
+    }, [user.uid])
+
     return (
         <View style={styles.container}>
             {showList ? (
@@ -21,7 +42,7 @@ export default function Listbirthday() {
                     <Text> Listbirthday </Text>
                 </>
             ) : (
-                <AddBirthday />
+                <AddBirthday user={user} SetShowList={SetShowList} />
             )}
             <ActionBar showList={showList} SetShowList={SetShowList} />
         </View>
