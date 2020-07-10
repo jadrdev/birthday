@@ -16,15 +16,18 @@ export default function Listbirthday(props) {
     useEffect(() => {
         setBirhday([])
         db.collection(user.uid)
-            .orderBy('DateBirth', 'asc')
+            .orderBy('dateBith', 'asc')
             .get()
             .then(response => {
                 const itemArray = []
                 response.forEach(doc => {
-                    console.log(doc.data())
+                    const data = doc.data()
+                    data.id = doc.id
+                    itemArray.push(data)
                 })
+                console.log(itemArray)
             })
-    }, [user.uid])
+    }, [])
 
     return (
         <View style={styles.container}>
