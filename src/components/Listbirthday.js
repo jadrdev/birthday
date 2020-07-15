@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import moment from 'moment'
-import { Text, StyleSheet, View, ScrollView } from 'react-native'
+import { StyleSheet, View, ScrollView, Alert } from 'react-native'
 import AddBirthday from '../components/AddBirthday'
 import ActionBar from '../components/ActionBar'
 import Birthday from '../components/Birthday'
@@ -71,15 +71,50 @@ export default function Listbirthday(props) {
         setBirthday(birthdayTempArray)
         setpasaBirthday(pasabirthdayTempArray)
     }
+
+    const deleteBirthday = birthday => {
+        Alert.alert(
+            'Eliminar cumpleaños',
+            `Estas seguro de eliminar el cumpleaños de ${birthday.name} ${
+                birthday.lastname
+            }`,
+            [
+                {
+                    text: 'Cancelar',
+                    style: 'cancel',
+                },
+                {
+                    text: 'Eliminar',
+                    onPress: () => {
+                        db.collection(user.uid)
+                            .doc(birthday.id)
+                            .delete()
+                            .then(() => {
+                                setreloadData()
+                            })
+                    },
+                },
+            ],
+            { cancelable: false }
+        )
+    }
     return (
         <View style={styles.container}>
             {showList ? (
                 <ScrollView style={styles.scrollview}>
                     {birthday.map((item, index) => (
-                        <Birthday key={index} birthday={item} />
+                        <Birthday
+                            key={index}
+                            birthday={item}
+                            deleteBirthday={deleteBirthday}
+                        />
                     ))}
                     {pasaBirthday.map((item, index) => (
-                        <Birthday key={index} birthday={item} />
+                        <Birthday
+                            key={index}
+                            birthday={item}
+                            deleteBirthday={deleteBirthday}
+                        />
                     ))}
                 </ScrollView>
             ) : (
