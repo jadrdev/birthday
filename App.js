@@ -21,13 +21,11 @@ if (!global.atob) {
     global.atob = decode
 }
 
-console.disableYellowBox = true
-
 export default function App() {
     const [user, setUser] = useState(undefined)
 
     useEffect(() => {
-        firebase.auth().onAuthStateChanged(response => {
+        firebase.auth().onAuthStateChanged((response) => {
             setUser(response)
         })
     }, [])
