@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { StyleSheet, View, Text, Image } from 'react-native'
+import { StyleSheet, View, Text, Image, LogBox } from 'react-native'
 import LoginForm from './LoginForm'
 import RegisterForm from './RegisterForm'
 
@@ -9,6 +9,8 @@ export default function Auth() {
     const changeForm = () => {
         setIsLogin(!isLogin)
     }
+
+    LogBox.ignoreAllLogs()
 
     return (
         <View style={styles.view}>
