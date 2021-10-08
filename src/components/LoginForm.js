@@ -37,9 +37,9 @@ export default function LoginForm(props) {
                         password: true,
                     });
                 });
-        setFormError(errors)
+            setFormError(errors)
+        }
     }
-}
 
     const onChange = (e, type) => {
         setFormData({ ...formData, [type]: e.nativeEvent.text })
