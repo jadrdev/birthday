@@ -1,3 +1,5 @@
+/* eslint-disable semi */
+/* eslint-disable react-native/no-inline-styles */
 import React, { useState } from 'react'
 import {
     StyleSheet,
@@ -44,9 +46,15 @@ export default function AddBirthday(props) {
     const onSubmit = () => {
         let errors = {}
         if (!formData.name || !formData.lastname || !formData.datebirth) {
-            if (!formData.name) errors.name = true
-            if (!formData.lastname) errors.lastname = true
-            if (!formData.datebirth) errors.datebirth = true
+            if (!formData.name) {
+                errors.name = true
+            }
+            if (!formData.lastname) {
+                errors.lastname = true
+            }
+            if (!formData.datebirth) {
+                errors.datebirth = true
+            }
         } else {
             const data = formData
             data.datebirth.setYear(0)
@@ -76,7 +84,9 @@ export default function AddBirthday(props) {
                     placeholderTextColor="#969696"
                     style={[
                         styles.input,
-                        formError.name && { borderColor: '#940c0c' },
+                        formError.name && {
+                            borderColor: '#940c0c',
+                        },
                     ]}
                     onChange={e => onChange(e, 'name')}
                 />
@@ -85,7 +95,9 @@ export default function AddBirthday(props) {
                     placeholderTextColor="#969696"
                     style={[
                         styles.input,
-                        formError.lastname && { borderColor: '#940c0c' },
+                        formError.lastname && {
+                            borderColor: '#940c0c',
+                        },
                     ]}
                     onChange={e => onChange(e, 'lastname')}
                 />
@@ -93,7 +105,9 @@ export default function AddBirthday(props) {
                     style={[
                         styles.input,
                         styles.datepicker,
-                        formError.datebirth && { borderColor: '#940c0c' },
+                        formError.datebirth && {
+                            borderColor: '#940c0c',
+                        },
                     ]}
                 >
                     <Text
